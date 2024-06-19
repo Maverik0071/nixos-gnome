@@ -133,6 +133,9 @@
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
   nixpkgs.config.allowAliases = false;
   services.sysprof.enable = true;
+  nixpkgs.config.firefox.enableGnomeExtensions = true;
+  #services.gnome.chrome-gnome-shell.enable = true;
+  #services.gnome.gnome-browser-connector.enable = true;
 
   # Enable the XFCE Desktop Environment.
   # services.xserver.displayManager.lightdm.enable = true;
@@ -185,7 +188,10 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox
+      #ungoogled-chromium
+      #brave
       acsccid
+      #scmccid
       lunarvim
       zsh
       gh
@@ -259,14 +265,18 @@
     nixpkgs-lint
     nixos-option
     nom
+    nitch
+    nh
 
   # gnome software
     gnome.gnome-software
+    gnome-extension-manager
     gnome.gnome-packagekit
     gnome.gnome-tweaks
     gnomeExtensions.dock-reloaded
     qgnomeplatform-qt6
     qgnomeplatform
+    gnomeExtensions.forge
   # xdg-desktop-portal-gnome
     lomiri.gmenuharness
   # gnome-gnome-settings-daemon
@@ -280,7 +290,7 @@
     git
     vim
     arandr
-    pkgs.chromium
+    # pkgs.chromium
     meson
     gcc
     clang
@@ -337,7 +347,7 @@
     ranger
     i3status
     pkgs.pcscliteWithPolkit
-    pkgs.pcsctools
+    pkgs.pcsc-tools
     pkgs.scmccid
     pkgs.ccid
     pkgs.pcsclite
@@ -353,7 +363,7 @@
    #vim and programming 
     vimPlugins.nvim-treesitter-textsubjects
     nixos-install-tools
-    nodejs_21
+    nodejs_22
     lua
     python3
     clipit
@@ -381,15 +391,16 @@
     wezterm
     xdragon
     lunarvim
-    pcsctools
+    # pcsctools
     pcsclite
     pkgs.opensc
   # pkgs.ark
     pam_p11
-    pam_usb
+    #pam_usb
     nss
     nss_latest
     distrobox
+    fzf-zsh
    # nvidia driver
    # nvidia_x11
    # nvidia-settings
@@ -454,7 +465,7 @@
     programs.starship.enable = true;
 
     environment.sessionVariables = {
-    FLAKE = "/etc/nixos/configuration.nix";
+    dotfiles = "/etc/nixos/configuration.nix";
   };
 
    # nix grub generations
@@ -487,6 +498,7 @@
     services.sshd.enable = true;
    # services.tlp.enable = true;
     services.pcscd.enable = true;
+    security.pam.p11.enable = true;
 
   #gnome services
   services.xserver.displayManager.gdm.autoSuspend = true;
